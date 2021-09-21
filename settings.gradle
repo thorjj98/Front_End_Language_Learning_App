@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "Urim and Tongueim"
+rootProject.name = "Front_End_Language_Learner"
