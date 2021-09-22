@@ -6,9 +6,7 @@ import android.text.SpannableString
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
 class VersesActivity : AppCompatActivity() {
@@ -19,6 +17,8 @@ class VersesActivity : AppCompatActivity() {
         //declare the content of the textview
         val content: TextView = findViewById(R.id.verses) as TextView
         content.movementMethod = LinkMovementMethod()
+        val translation: TextView = findViewById(R.id.translation) as TextView
+
 
         //get a string containing every verse in the chapter
         val contentSpannableString = SpannableString("At ito ay nangyari na")
@@ -28,8 +28,9 @@ class VersesActivity : AppCompatActivity() {
             if (i == 1){
                 val clickableSpan = object: ClickableSpan(){
                     override fun onClick(widget: View) {
-                        //pop up menu
+                        translation.setText("And")
                     }
+
                 }
                 //set the length of the span
                 contentSpannableString.setSpan(clickableSpan, 0, 2, 0)
@@ -37,7 +38,7 @@ class VersesActivity : AppCompatActivity() {
             else if (i == 2){
                 val clickableSpan = object: ClickableSpan(){
                     override fun onClick(widget: View) {
-                        //pop up menu
+                        translation.setText("it")
                     }
                 }
                 //set the length of the span
@@ -46,7 +47,7 @@ class VersesActivity : AppCompatActivity() {
             else {
                 val clickableSpan = object: ClickableSpan(){
                     override fun onClick(widget: View) {
-                        //pop up menu
+                        translation.setText("came to pass")
                     }
                 }
                 //set the length of the span
