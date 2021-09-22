@@ -29,24 +29,6 @@ class HomeFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-
-//        val buttonAddLanguage = findViewById<Button>(R.id.addLanguage)
-//        buttonAddLanguage.setOnClickListener {
-//            val intent = Intent(this, AddLanguageActivity::class.java)
-//            startActivity(intent)
-//        }
-//
-//        val buttonSpanish = findViewById<Button>(R.id.languageSpanish)
-//        buttonSpanish.setOnClickListener {
-//            val intent = Intent(this, StudyActivity::class.java)
-//            startActivity(intent)
-//        }
-//
-//        val buttonUserSettings = findViewById<Button>(R.id.user)
-//        buttonUserSettings.setOnClickListener {
-//            val intent = Intent(this, UserSettingsActivity::class.java)
-//            startActivity(intent)
-//        }
     }
 
     override fun onCreateView(
@@ -54,7 +36,26 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_home, container, false)
+
+        val buttonAddLanguage = view.findViewById<Button>(R.id.addLanguage)
+        buttonAddLanguage.setOnClickListener {
+            val intent = Intent(activity, AddLanguageActivity::class.java)
+            startActivity(intent)
+        }
+
+        val buttonSpanish = view.findViewById<Button>(R.id.languageSpanish)
+        buttonSpanish.setOnClickListener {
+            val intent = Intent(activity, StudyActivity::class.java)
+            startActivity(intent)
+        }
+
+        val buttonUserSettings = view.findViewById<Button>(R.id.user)
+        buttonUserSettings.setOnClickListener {
+            val intent = Intent(activity, UserSettingsActivity::class.java)
+            startActivity(intent)
+        }
+        return view
     }
 
     companion object {
