@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeFragment">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="1dp"
+            tools:ignore="MissingConstraints">
+
+            <Button
+                android:id="@+id/languageSpanish"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Spanish" />
+
+            <Button
+                android:id="@+id/addLanguage"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Language"
+                tools:ignore="MissingConstraints" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/user"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="User Settings" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+</FrameLayout>
