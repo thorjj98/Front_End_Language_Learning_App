@@ -13,11 +13,9 @@ class StudyActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_study)
 
-        //to do connect to scripture activity
-        //
         val buttonBookOfMormon = findViewById<Button>(R.id.bookOfMormon)
         buttonBookOfMormon.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, ScriptureActivity::class.java)
             startActivity(intent)
         }
 
