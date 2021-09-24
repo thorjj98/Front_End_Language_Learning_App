@@ -1,22 +1,16 @@
 package com.example.urimandtongueim.model
 
-class DataCache {
-    private var instance: DataCache? = null
+object DataCache {
 
-    fun getInstance(): DataCache? {
-        if (instance == null) {
-            instance = DataCache()
-        }
-        return instance
-    }
+    var isLoggedIn: Boolean = false
+    var username = ""
+    var password = ""
 
-    private var isLoggedIn = false
-
-    fun isLoggedIn(): Boolean {
+    fun isUserLoggedIn(): Boolean {
         return isLoggedIn
     }
 
-    fun setLoggedIn(loggedIn: Boolean) {
-        isLoggedIn = loggedIn
+    fun setLoggedInStatus(loggedInBool: Boolean) {
+        isLoggedIn = loggedInBool
     }
 }

@@ -3,9 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/mccan/OneDrive/Documents/CS_Classes/452/app/src/main/res/drawable/text_bubble_drawable.xml" value="0.2708333333333333" />
+        <entry key="..\:/Users/mccan/OneDrive/Documents/CS_Classes/452/app/src/main/res/drawable/text_bubble_triangle.xml" value="0.2708333333333333" />
         <entry key="..\:/Users/mccan/OneDrive/Documents/CS_Classes/452/app/src/main/res/layout/activity_main.xml" value="0.268" />
         <entry key="..\:/Users/mccan/OneDrive/Documents/CS_Classes/452/app/src/main/res/layout/fragment_home.xml" value="0.2546875" />
-        <entry key="..\:/Users/mccan/OneDrive/Documents/CS_Classes/452/app/src/main/res/layout/fragment_login.xml" value="0.1" />
+        <entry key="..\:/Users/mccan/OneDrive/Documents/CS_Classes/452/app/src/main/res/layout/fragment_login.xml" value="0.44000000000000006" />
       </map>
     </option>
   </component>

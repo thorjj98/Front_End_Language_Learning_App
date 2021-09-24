@@ -16,14 +16,13 @@ import com.example.urimandtongueim.model.DataCache
 
 class MainActivity : AppCompatActivity() {
 
-    private var isLoggedIn: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val fm: FragmentManager = this.supportFragmentManager
-        if (!isLoggedIn) {
+        if (!DataCache.isLoggedIn) {
             val loginFragment: LoginFragment = LoginFragment()
             val args = Bundle()
             loginFragment.arguments = args
@@ -40,22 +39,5 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
 
-//        val buttonAddLanguage = findViewById<Button>(R.id.addLanguage)
-//        buttonAddLanguage.setOnClickListener {
-//            val intent = Intent(this, AddLanguageActivity::class.java)
-//            startActivity(intent)
-//        }
-//
-//        val buttonSpanish = findViewById<Button>(R.id.languageSpanish)
-//        buttonSpanish.setOnClickListener {
-//            val intent = Intent(this, StudyActivity::class.java)
-//            startActivity(intent)
-//        }
-//
-//        val buttonUserSettings = findViewById<Button>(R.id.user)
-//        buttonUserSettings.setOnClickListener {
-//            val intent = Intent(this, UserSettingsActivity::class.java)
-//            startActivity(intent)
-//        }
     }
 }
