@@ -16,14 +16,22 @@
                 android:id="@+id/languageSpanish"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Spanish" />
+                android:text="Spanish"
+                android:layout_margin="15dp"
+                android:layout_marginBottom="0dp"
+                android:background="#356ec9"
+                android:textColor="#ffffff"/>
 
             <Button
                 android:id="@+id/addLanguage"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="Add Language"
-                tools:ignore="MissingConstraints" />
+                tools:ignore="MissingConstraints"
+                android:layout_margin="15dp"
+                android:layout_marginBottom="0dp"
+                android:background="#356ec9"
+                android:textColor="#ffffff"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -35,7 +43,11 @@
                     android:id="@+id/user"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="User Settings" />
+                    android:text="User Settings"
+                    android:layout_margin="15dp"
+                    android:layout_marginBottom="0dp"
+                    android:background="#356ec9"
+                    android:textColor="#ffffff"/>
             </LinearLayout>
 
 

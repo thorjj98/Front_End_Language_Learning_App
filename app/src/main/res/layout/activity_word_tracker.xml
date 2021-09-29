@@ -17,24 +17,40 @@
             android:id="@+id/overall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Overall" />
+            android:text="Overall"
+            android:layout_margin="15dp"
+            android:layout_marginBottom="0dp"
+            android:background="#356ec9"
+            android:textColor="#ffffff"/>
 
         <Button
             android:id="@+id/word1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="word1" />
+            android:text="word1"
+            android:layout_margin="15dp"
+            android:layout_marginBottom="0dp"
+            android:background="#356ec9"
+            android:textColor="#ffffff"/>
 
         <Button
             android:id="@+id/word2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="word2" />
+            android:text="word2"
+            android:layout_margin="15dp"
+            android:layout_marginBottom="0dp"
+            android:background="#356ec9"
+            android:textColor="#ffffff"/>
 
         <Button
             android:id="@+id/word3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="word3" />
+            android:text="word3"
+            android:layout_margin="15dp"
+            android:layout_marginBottom="0dp"
+            android:background="#356ec9"
+            android:textColor="#ffffff"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

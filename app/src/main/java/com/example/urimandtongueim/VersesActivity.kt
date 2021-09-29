@@ -67,9 +67,7 @@ class VersesActivity : AppCompatActivity() {
                             0 // Y offset
                         )
                         popupDisplayed = true
-
                     }
-
                 }
                 //set the length of the span
                 contentSpannableString.setSpan(clickableSpan, 0, 2, 0)

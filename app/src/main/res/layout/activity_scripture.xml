@@ -17,6 +17,10 @@
             android:id="@+id/FirstNephi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1 Nephi" />
+            android:text="1 Nephi"
+            android:layout_margin="15dp"
+            android:layout_marginBottom="0dp"
+            android:background="#356ec9"
+            android:textColor="#ffffff" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
