@@ -2,11 +2,13 @@ package com.example.urimandtongueim
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.text.SpannableString
+import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.transition.TransitionManager
@@ -20,6 +22,7 @@ import androidx.core.view.marginLeft
 import kotlinx.android.synthetic.main.activity_verses.*
 
 class VersesActivity : AppCompatActivity() {
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_verses)
@@ -68,6 +71,12 @@ class VersesActivity : AppCompatActivity() {
                         )
                         popupDisplayed = true
                     }
+
+                    override fun updateDrawState(ds: TextPaint) {
+                        super.updateDrawState(ds)
+                        ds.setColor(Color.parseColor("#000000"))
+                        ds.setUnderlineText(false);
+                    }
                 }
                 //set the length of the span
                 contentSpannableString.setSpan(clickableSpan, 0, 2, 0)
@@ -90,6 +99,11 @@ class VersesActivity : AppCompatActivity() {
                         popupDisplayed = true
                     }
 
+                    override fun updateDrawState(ds: TextPaint) {
+                        super.updateDrawState(ds)
+                        ds.setColor(Color.parseColor("#000000"))
+                        ds.setUnderlineText(false);
+                    }
                 }
                 //set the length of the span
                 contentSpannableString.setSpan(clickableSpan, 3, 6, 0)
@@ -112,6 +126,11 @@ class VersesActivity : AppCompatActivity() {
                         popupDisplayed = true
                     }
 
+                    override fun updateDrawState(ds: TextPaint) {
+                        super.updateDrawState(ds)
+                        ds.setColor(Color.parseColor("#000000"))
+                        ds.setUnderlineText(false);
+                    }
                 }
                 //set the length of the span
                 contentSpannableString.setSpan(clickableSpan, 7, 21, 0)
