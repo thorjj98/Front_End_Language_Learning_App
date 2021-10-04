@@ -13,18 +13,19 @@ class ScriptureActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scripture)
 
-
+        val button1Nephi = findViewById<Button>(R.id.FirstNephi)
+        //button1Nephi.setText(i.name)
+        button1Nephi.setOnClickListener {
+            val intent = Intent(this, ChapterActivity::class.java)
+            startActivity(intent)
+        }
+        /*
         var parser: JsonParser = JsonParser()
-        var books = parser.getBooks()
+        var books = parser.getBooks(this)
         if (books != null) {
             for (i in books){
-                val button1Nephi = findViewById<Button>(R.id.FirstNephi)
-                button1Nephi.setText(i.name)
-                button1Nephi.setOnClickListener {
-                    val intent = Intent(this, ChapterActivity::class.java)
-                    startActivity(intent)
-                }
+
             }
-        }
+        }*/
     }
 }
