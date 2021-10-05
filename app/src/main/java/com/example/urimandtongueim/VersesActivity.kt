@@ -42,7 +42,7 @@ class VersesActivity : AppCompatActivity() {
             LinearLayout.LayoutParams.WRAP_CONTENT, // Width of popup window
             LinearLayout.LayoutParams.WRAP_CONTENT // Window height
         )
-        val translation = view.findViewById<TextView>(R.id.bubble)
+        val translation = view.findViewById<TextView>(R.id.translation_popup)
         var popupDisplayed = false
         view.setOnClickListener{
             if(popupDisplayed){
