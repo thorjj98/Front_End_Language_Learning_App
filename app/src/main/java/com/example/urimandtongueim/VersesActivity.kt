@@ -27,6 +27,9 @@ class VersesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_verses)
 
+        var isTextClicked = false;
+        val BLUE_HIGHLIGHT = verses.highlightColor;
+
         //declare the content of the textview
         val content: TextView = findViewById(R.id.verses) as TextView
         content.movementMethod = LinkMovementMethod()
@@ -39,13 +42,26 @@ class VersesActivity : AppCompatActivity() {
             LinearLayout.LayoutParams.WRAP_CONTENT, // Width of popup window
             LinearLayout.LayoutParams.WRAP_CONTENT // Window height
         )
-        val translation = view.findViewById<TextView>(R.id.translation_popup)
+        val translation = view.findViewById<TextView>(R.id.bubble)
         var popupDisplayed = false
         view.setOnClickListener{
             if(popupDisplayed){
                 popupWindow.dismiss()
                 popupDisplayed = false
             }
+            isTextClicked = false
+        }
+
+        val wholePage: ImageView = findViewById<ImageView>(R.id.fullPage)
+        wholePage.setOnClickListener{
+            if(popupDisplayed && !isTextClicked){
+                popupWindow.dismiss()
+                popupDisplayed = false
+                verses.highlightColor = (Color.TRANSPARENT)
+                verses.highlightColor = BLUE_HIGHLIGHT
+            }
+            isTextClicked = false
+
         }
 
         var english = "Nephi begins the record of his people—Lehi sees in vision a pillar of fire and reads from a book of prophecy—He praises God, foretells the coming of the Messiah, and prophesies the destruction of Jerusalem—He is persecuted by the Jews. About 600 B.C."
@@ -93,6 +109,7 @@ class VersesActivity : AppCompatActivity() {
                         0 // Y offset
                     )
                     popupDisplayed = true
+                    isTextClicked = true
                 }
 
                 override fun updateDrawState(ds: TextPaint) {
