@@ -15,31 +15,39 @@ import java.io.IOException
 class JsonParser {
 
 
+    data class StandardWorks(
+        //val id: String,
+        //val name: String,
+        val scriptures: Array<Scripture>
+        )
+
     data class Scripture(
         val id: String,
         val name: String,
-        val books: Array<Books>,
-        )
+        val books: Array<Book>
+    )
 
-    data class Books(
+    data class Book(
         val id: String,
         val name: String,
-        val chapters: Array<Books>
+        val chapters: Array<Chapter>
     )
-    data class Verse(
+    data class Chapter(
         val verses: Array<String>
     )
 
     @SuppressLint("SdCardPath")
-    fun getBooks(context: Context): Array<Books>? {
+    fun getBooks(context: Context): Array<Book>? {
         val jsonString: String
         try {
             val downloadFolder = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
             if (downloadFolder != null) {
-                jsonString = File(downloadFolder?.path + "/eng.json").readLines().toString()
-                var gson = Gson()
-                var scripture = gson.fromJson(jsonString, Scripture::class.java)
-                var books : MutableList<Books> = scripture.books.toMutableList()
+                val path = context.filesDir.absolutePath
+                jsonString = File("$path/eng.json").readLines().toString()
+                val gson = Gson()
+                val standardWorks = gson.fromJson(jsonString, StandardWorks::class.java)
+                var scriptures : MutableList<Scripture> = standardWorks.scriptures.toMutableList()
+                val books : MutableList<Book> = scriptures[0].books.toMutableList()
                 return books.toTypedArray()
             }
         } catch (ioException: IOException) {

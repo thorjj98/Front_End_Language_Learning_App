@@ -4,9 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.example.urimandtongueim.model.JsonParser
-import com.example.urimandtongueim.model.JsonParser.Books
-
 
 class ScriptureActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -19,6 +19,7 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.marginLeft
+import com.example.urimandtongueim.model.JsonParser
 import kotlinx.android.synthetic.main.activity_verses.*
 
 class VersesActivity : AppCompatActivity() {
@@ -64,9 +65,11 @@ class VersesActivity : AppCompatActivity() {
 
         }
 
-        var english = "Nephi begins the record of his people—Lehi sees in vision a pillar of fire and reads from a book of prophecy—He praises God, foretells the coming of the Messiah, and prophesies the destruction of Jerusalem—He is persecuted by the Jews. About 600 B.C."
+        val jsonParser: JsonParser = JsonParser()
+        val englishJson = jsonParser.getBooks(this)
+        val english ="Nephi begins the record of his people—Lehi sees in vision a pillar of fire and reads from a book of prophecy—He praises God, foretells the coming of the Messiah, and prophesies the destruction of Jerusalem—He is persecuted by the Jews. About 600 B.C."
 
-        var spanish = "Nefi da principio a la historia de su pueblo — Lehi ve en visión un pilar de fuego y lee en un libro de profecías — Alaba a Dios, predice la venida del Mesías y profetiza la destrucción de Jerusalén — Es perseguido por los judíos. Aproximadamente 600 a.C."
+        val spanish = "Nefi da principio a la historia de su pueblo — Lehi ve en visión un pilar de fuego y lee en un libro de profecías — Alaba a Dios, predice la venida del Mesías y profetiza la destrucción de Jerusalén — Es perseguido por los judíos. Aproximadamente 600 a.C."
 
         //get a string containing every verse in the chapter
         val contentSpannableString = SpannableString(spanish)
