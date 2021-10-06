@@ -1,6 +1,6 @@
 package com.example.urimandtongueim.model.responses
 
-class RegisterResponse(successInput: Boolean) {
+class JsonResponse(successInput: Boolean) {
 
     //to do return json files for languages
 
