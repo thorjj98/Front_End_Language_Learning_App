@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val fm: FragmentManager = this.supportFragmentManager
-        if (!DataCache.isLoggedIn) {
+        if (!DataCache.isUserLoggedIn()) {
             val loginFragment: LoginFragment = LoginFragment()
             val args = Bundle()
             loginFragment.arguments = args

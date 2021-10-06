@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.FragmentManager
 import com.example.urimandtongueim.model.DataCache
 
 class LoginFragment : Fragment() {
@@ -24,10 +25,30 @@ class LoginFragment : Fragment() {
 
         val loginButton = view.findViewById<Button>(R.id.loginButton)
         loginButton.setOnClickListener {
-            DataCache.setLoggedInStatus(true)
-            val intent = Intent(activity, MainActivity::class.java)
-            startActivity(intent)
+            val fm: FragmentManager? = fragmentManager
+            val homeFragment: HomeFragment = HomeFragment()
+            val args = Bundle()
+            homeFragment.arguments = args
+            if (fm != null) {
+                fm.beginTransaction()
+                    .replace(R.id.fragmentContainer, homeFragment)
+                    .commit()
+            }
         }
+
+        val registerButton = view.findViewById<Button>(R.id.registerButton)
+        registerButton.setOnClickListener{
+            val fm: FragmentManager? = fragmentManager
+            val registerFragment: RegisterFragment = RegisterFragment()
+            val args = Bundle()
+            registerFragment.arguments = args
+            if (fm != null) {
+                fm.beginTransaction()
+                    .replace(R.id.fragmentContainer, registerFragment)
+                    .commit()
+            }
+        }
+
         return view
     }
 }
