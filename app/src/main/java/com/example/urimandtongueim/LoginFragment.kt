@@ -11,6 +11,7 @@ import android.widget.EditText
 import androidx.fragment.app.FragmentManager
 import com.example.urimandtongueim.model.DataCache
 import com.example.urimandtongueim.model.requests.LoginRequest
+import com.example.urimandtongueim.model.service.LanguageService
 import com.example.urimandtongueim.model.service.LoginService
 
 class LoginFragment : Fragment() {
@@ -36,6 +37,7 @@ class LoginFragment : Fragment() {
 
             val response = loginService.login(LoginRequest(userName, password))
             if (response.isSuccess()){
+                DataCache.setLoggedInStatus(true)
                 val fm: FragmentManager? = fragmentManager
                 val homeFragment: HomeFragment = HomeFragment()
                 val args = Bundle()

@@ -1,11 +1,7 @@
 package com.example.urimandtongueim.model
 
-import com.example.urimandtongueim.model.requests.JsonRequest
-import com.example.urimandtongueim.model.requests.LoginRequest
-import com.example.urimandtongueim.model.requests.RegisterRequest
-import com.example.urimandtongueim.model.responses.JsonResponse
-import com.example.urimandtongueim.model.responses.LoginResponse
-import com.example.urimandtongueim.model.responses.RegisterResponse
+import com.example.urimandtongueim.model.requests.*
+import com.example.urimandtongueim.model.responses.*
 
 class ServerFacade {
 
@@ -19,8 +15,18 @@ class ServerFacade {
         return response
     }
 
-    fun getJson(request: JsonRequest): JsonResponse{
-        val response = JsonResponse(true)
+    fun getJson(request: FileRequest): FileResponse{
+        val response = FileResponse(true)
+        return response
+    }
+
+    fun getLanguages(request: LanguageRequest): LanguageResponse{
+        val response = LanguageResponse(true, arrayOf("English", "Spanish"))
+        return response
+    }
+
+    fun getStatsitics(request: StatisticRequest): StatisticResponse{
+        val response = StatisticResponse(true)
         return response
     }
 

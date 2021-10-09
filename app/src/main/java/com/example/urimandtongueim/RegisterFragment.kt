@@ -13,8 +13,10 @@ import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.urimandtongueim.model.DataCache
+import com.example.urimandtongueim.model.requests.LanguageRequest
 import com.example.urimandtongueim.model.requests.LoginRequest
 import com.example.urimandtongueim.model.requests.RegisterRequest
+import com.example.urimandtongueim.model.service.LanguageService
 import com.example.urimandtongueim.model.service.LoginService
 import com.example.urimandtongueim.model.service.RegisterService
 
@@ -34,7 +36,15 @@ class RegisterFragment : Fragment()  {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_register, container, false)
 
-        val languageArray = arrayListOf("English", "Spanish")
+        var languageService = LanguageService()
+        val languageResponse = languageService.getLanguages(LanguageRequest())
+
+        val languageArray: Array<String>
+
+        if (languageResponse.isSuccess()){
+            languageArray = languageResponse.getLanguages()
+        }
+        else languageArray = arrayOf()
 
         val nativeLanguageAdapter: ArrayAdapter<*>
         val nativeLanguageSpinner: Spinner = view.findViewById(R.id.nativeLanguageSpinner)
@@ -68,6 +78,7 @@ class RegisterFragment : Fragment()  {
             val response = registerService.register(RegisterRequest(userName, password, nativeLanguage, learnerLanguage))
 
             if (response.isSuccess()){
+                DataCache.setLoggedInStatus(true)
                 val fm: FragmentManager? = fragmentManager
                 val homeFragment: HomeFragment = HomeFragment()
                 val args = Bundle()

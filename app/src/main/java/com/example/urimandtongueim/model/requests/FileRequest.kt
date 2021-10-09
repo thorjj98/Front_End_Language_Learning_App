@@ -1,6 +1,6 @@
 package com.example.urimandtongueim.model.requests
 
-class JsonRequest(languageInput: String) {
+class FileRequest(languageInput: String) {
     val language = languageInput
 
     @JvmName("getLanguage1")
