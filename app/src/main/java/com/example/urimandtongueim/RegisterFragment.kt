@@ -2,6 +2,7 @@ package com.example.urimandtongueim
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.urimandtongueim.model.DataCache
@@ -28,6 +30,7 @@ class RegisterFragment : Fragment()  {
     var registerService = RegisterService()
 
 
+    @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("CutPasteId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,12 +42,13 @@ class RegisterFragment : Fragment()  {
         var languageService = LanguageService()
         val languageResponse = languageService.getLanguages(LanguageRequest())
 
-        val languageArray: Array<String>
+        var languageArray: Array<String> = arrayOf()
 
-        if (languageResponse.isSuccess()){
-            languageArray = languageResponse.getLanguages()
+        if (languageResponse != null) {
+            if (languageResponse.isSuccess()){
+                languageArray = languageResponse.getLanguages()
+            }
         }
-        else languageArray = arrayOf()
 
         val nativeLanguageAdapter: ArrayAdapter<*>
         val nativeLanguageSpinner: Spinner = view.findViewById(R.id.nativeLanguageSpinner)
