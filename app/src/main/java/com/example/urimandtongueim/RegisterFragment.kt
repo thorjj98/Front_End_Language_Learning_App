@@ -27,7 +27,7 @@ class RegisterFragment : Fragment()  {
         super.onCreate(savedInstanceState)
     }
 
-    var registerService = RegisterService()
+    val registerService = RegisterService()
 
     private val languageAsyncTask = LanguageTask()
     @RequiresApi(Build.VERSION_CODES.N)
@@ -51,22 +51,8 @@ class RegisterFragment : Fragment()  {
             val password = view.findViewById<EditText>(R.id.editPasswordText).toString()
             val nativeLanguage = view.findViewById<Spinner>(R.id.nativeLanguageSpinner).selectedItem.toString()
             val learnerLanguage = view.findViewById<Spinner>(R.id.learningLanguageSpinner).selectedItem.toString()
-            val response = registerService.register(RegisterRequest(userName, password, nativeLanguage, learnerLanguage))
 
-            if (response != null) {
-                if (response.isSuccess()){
-                    DataCache.setLoggedInStatus(true)
-                    val fm: FragmentManager? = fragmentManager
-                    val homeFragment: HomeFragment = HomeFragment()
-                    val args = Bundle()
-                    homeFragment.arguments = args
-                    if (fm != null) {
-                        fm.beginTransaction()
-                            .replace(R.id.fragmentContainer, homeFragment)
-                            .commit()
-                    }
-                }
-            }
+            registerAsyncTask.execute(RegisterRequest(userName, password, nativeLanguage, learnerLanguage))
         }
 
         val loginButton = view.findViewById<Button>(R.id.loginReturn)
@@ -75,11 +61,7 @@ class RegisterFragment : Fragment()  {
             val loginFragment: LoginFragment = LoginFragment()
             val args = Bundle()
             loginFragment.arguments = args
-            if (fm != null) {
-                fm.beginTransaction()
-                    .replace(R.id.fragmentContainer, loginFragment)
-                    .commit()
-            }
+            fm?.beginTransaction()?.replace(R.id.fragmentContainer, loginFragment)?.commit()
         }
 
         return view
@@ -144,7 +126,7 @@ class RegisterFragment : Fragment()  {
             register(response)
         }
 
-        override fun doInBackground(vararg request: RegisterRequest): RegisterResponse? {
+        override fun doInBackground(vararg request: RegisterRequest): RegisterResponse {
             val registerService = RegisterService()
             return registerService.register(request[0])
         }
