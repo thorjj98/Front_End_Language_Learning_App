@@ -18,6 +18,7 @@ import com.example.urimandtongueim.model.DataCache
 import com.example.urimandtongueim.model.requests.LanguageRequest
 import com.example.urimandtongueim.model.requests.RegisterRequest
 import com.example.urimandtongueim.model.responses.LanguageResponse
+import com.example.urimandtongueim.model.responses.RegisterResponse
 import com.example.urimandtongueim.model.service.LanguageService
 import com.example.urimandtongueim.model.service.RegisterService
 import com.example.urimandtongueim.net.RegisterTask
@@ -29,7 +30,8 @@ class RegisterFragment : Fragment()  {
 
     var registerService = RegisterService()
 
-    val languageAsyncTask = LanguageTask()
+    private val languageAsyncTask = LanguageTask()
+    @RequiresApi(Build.VERSION_CODES.N)
     val registerAsyncTask = RegisterTask()
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -104,6 +106,17 @@ class RegisterFragment : Fragment()  {
         learningLanguageSpinner.adapter = learningLanguageAdapter
     }
 
+    fun register(response: RegisterResponse) {
+        if (response.isSuccess()){
+            DataCache.setLoggedInStatus(true)
+            val fm: FragmentManager? = fragmentManager
+            val homeFragment: HomeFragment = HomeFragment()
+            val args = Bundle()
+            homeFragment.arguments = args
+            fm?.beginTransaction()?.replace(R.id.fragmentContainer, homeFragment)?.commit()
+        }
+    }
+
     @SuppressLint("StaticFieldLeak")
     inner class LanguageTask: AsyncTask<LanguageRequest, Void, LanguageResponse>(){
         @RequiresApi(Build.VERSION_CODES.N)
@@ -118,5 +131,22 @@ class RegisterFragment : Fragment()  {
                 setLanguages(result.getLanguages())
             }
         }
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    inner class RegisterTask @RequiresApi(Build.VERSION_CODES.N) constructor() :
+        AsyncTask<RegisterRequest, Void, RegisterResponse>() {
+
+        @RequiresApi(Build.VERSION_CODES.N)
+        override fun onPostExecute(response: RegisterResponse) {
+            super.onPostExecute(response)
+            register(response)
+        }
+
+        override fun doInBackground(vararg request: RegisterRequest): RegisterResponse {
+            val registerService = RegisterService()
+            return registerService.register(request[0])
+        }
+
     }
 }
