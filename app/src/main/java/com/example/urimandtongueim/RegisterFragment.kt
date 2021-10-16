@@ -1,7 +1,6 @@
 package com.example.urimandtongueim
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
@@ -17,12 +16,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.urimandtongueim.model.DataCache
 import com.example.urimandtongueim.model.requests.LanguageRequest
-import com.example.urimandtongueim.model.requests.LoginRequest
 import com.example.urimandtongueim.model.requests.RegisterRequest
 import com.example.urimandtongueim.model.responses.LanguageResponse
 import com.example.urimandtongueim.model.service.LanguageService
-import com.example.urimandtongueim.model.service.LoginService
 import com.example.urimandtongueim.model.service.RegisterService
+import com.example.urimandtongueim.net.RegisterTask
 
 class RegisterFragment : Fragment()  {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +29,8 @@ class RegisterFragment : Fragment()  {
 
     var registerService = RegisterService()
 
-    var languageAsyncTask = languageTask()
+    val languageAsyncTask = LanguageTask()
+    val registerAsyncTask = RegisterTask()
 
     @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("CutPasteId")
@@ -106,13 +105,11 @@ class RegisterFragment : Fragment()  {
     }
 
     @SuppressLint("StaticFieldLeak")
-    inner class languageTask: AsyncTask<LanguageRequest, Void, LanguageResponse>(){
+    inner class LanguageTask: AsyncTask<LanguageRequest, Void, LanguageResponse>(){
         @RequiresApi(Build.VERSION_CODES.N)
         override fun doInBackground(vararg params: LanguageRequest?): LanguageResponse? {
-            var languageService = LanguageService()
-            val languageResponse = languageService.getLanguages(LanguageRequest())
-
-            return languageResponse
+            val languageService = LanguageService()
+            return languageService.getLanguages(LanguageRequest())
         }
 
         override fun onPostExecute(result: LanguageResponse?) {
