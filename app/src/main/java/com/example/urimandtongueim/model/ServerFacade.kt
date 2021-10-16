@@ -32,48 +32,36 @@ class ServerFacade {
 
     @RequiresApi(Build.VERSION_CODES.N)
     fun getLanguages(request: LanguageRequest): LanguageResponse? {
-        var task = languageTask()
-        task.execute(request)
+        val connection = URL("http://10.0.2.2:8080/language").openConnection() as HttpURLConnection
+        connection.readTimeout = 5000
+        connection.requestMethod = "GET"
+        connection.connect()
+        if (connection.responseCode == HttpURLConnection.HTTP_OK) {
+            val jsonResponse: String? = readStringFromInputStream(connection.inputStream)
+            val gson = Gson()
+            val response = gson.fromJson(jsonResponse, LanguageResponse::class.java)
+            return response
+        }
         return null
-    }
-
-    inner class languageTask: AsyncTask<LanguageRequest, Void, LanguageResponse>() {
-        override fun doInBackground(vararg params: LanguageRequest?): LanguageResponse {
-            val connection = URL("http://10.0.2.2:8080/language").openConnection() as HttpURLConnection
-            connection.readTimeout = 5000
-            connection.requestMethod = "GET"
-            connection.connect()
-            if (connection.responseCode == HttpURLConnection.HTTP_OK) {
-                val jsonResponse: String? = readStringFromInputStream(connection.inputStream)
-                val gson = Gson()
-                val response = gson.fromJson(jsonResponse, LanguageResponse::class.java)
-                return response
-            }
-            return LanguageResponse(true, arrayOf(), arrayOf())
-        }
-
-        override fun onPostExecute(response: LanguageResponse?) {
-            languageResponse
-        }
-
-        private fun readStringFromInputStream(inputStream: InputStream): String? {
-            val stringBuilder = StringBuilder()
-            val streamReader = InputStreamReader(inputStream)
-            val buf = CharArray(1024)
-            var len: Int
-
-            while (0 < streamReader.read(buf).also { len = it }) {
-                stringBuilder.append(buf, 0, len)
-            }
-
-            inputStream.close()
-            return stringBuilder.toString()
-        }
     }
 
     fun getStatsitics(request: StatisticRequest): StatisticResponse{
         val response = StatisticResponse(true)
         return response
+    }
+
+    private fun readStringFromInputStream(inputStream: InputStream): String? {
+        val stringBuilder = StringBuilder()
+        val streamReader = InputStreamReader(inputStream)
+        val buf = CharArray(1024)
+        var len: Int
+
+        while (0 < streamReader.read(buf).also { len = it }) {
+            stringBuilder.append(buf, 0, len)
+        }
+
+        inputStream.close()
+        return stringBuilder.toString()
     }
 
 

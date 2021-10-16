@@ -2,6 +2,7 @@ package com.example.urimandtongueim
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,6 +19,7 @@ import com.example.urimandtongueim.model.DataCache
 import com.example.urimandtongueim.model.requests.LanguageRequest
 import com.example.urimandtongueim.model.requests.LoginRequest
 import com.example.urimandtongueim.model.requests.RegisterRequest
+import com.example.urimandtongueim.model.responses.LanguageResponse
 import com.example.urimandtongueim.model.service.LanguageService
 import com.example.urimandtongueim.model.service.LoginService
 import com.example.urimandtongueim.model.service.RegisterService
@@ -29,48 +31,18 @@ class RegisterFragment : Fragment()  {
 
     var registerService = RegisterService()
 
+    var languageAsyncTask = languageTask()
 
     @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("CutPasteId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_register, container, false)
 
-        var languageService = LanguageService()
-        val languageResponse = languageService.getLanguages(LanguageRequest())
-
-        var languageArray: Array<String> = arrayOf()
-
-        if (languageResponse != null) {
-            if (languageResponse.isSuccess()){
-                languageArray = languageResponse.getLanguages()
-            }
-        }
-
-        val nativeLanguageAdapter: ArrayAdapter<*>
-        val nativeLanguageSpinner: Spinner = view.findViewById(R.id.nativeLanguageSpinner)
-        nativeLanguageAdapter = context?.let {
-            ArrayAdapter(
-                it,
-                android.R.layout.simple_list_item_1,
-                languageArray
-            )
-        }!!
-        nativeLanguageSpinner.adapter = nativeLanguageAdapter
-
-        val learningLanguageAdapter: ArrayAdapter<*>
-        val learningLanguageSpinner: Spinner = view.findViewById(R.id.learningLanguageSpinner)
-        learningLanguageAdapter = context?.let {
-            ArrayAdapter(
-                it,
-                android.R.layout.simple_list_item_1,
-                languageArray
-            )
-        }!!
-        learningLanguageSpinner.adapter = learningLanguageAdapter
+        languageAsyncTask.execute()
 
         val registerButton = view.findViewById<Button>(R.id.register)
         registerButton.setOnClickListener {
@@ -109,5 +81,45 @@ class RegisterFragment : Fragment()  {
         }
 
         return view
+    }
+
+    fun setLanguages(languages: Array<String>){
+        val nativeLanguageSpinner: Spinner = view!!.findViewById(R.id.nativeLanguageSpinner)
+        val nativeLanguageAdapter: ArrayAdapter<*> = context?.let {
+            ArrayAdapter(
+                it,
+                android.R.layout.simple_list_item_1,
+                languages
+            )
+        }!!
+        nativeLanguageSpinner.adapter = nativeLanguageAdapter
+
+        val learningLanguageSpinner: Spinner = view!!.findViewById(R.id.learningLanguageSpinner)
+        val learningLanguageAdapter: ArrayAdapter<*> = context?.let {
+            ArrayAdapter(
+                it,
+                android.R.layout.simple_list_item_1,
+                languages
+            )
+        }!!
+        learningLanguageSpinner.adapter = learningLanguageAdapter
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    inner class languageTask: AsyncTask<LanguageRequest, Void, LanguageResponse>(){
+        @RequiresApi(Build.VERSION_CODES.N)
+        override fun doInBackground(vararg params: LanguageRequest?): LanguageResponse? {
+            var languageService = LanguageService()
+            val languageResponse = languageService.getLanguages(LanguageRequest())
+
+            return languageResponse
+        }
+
+        override fun onPostExecute(result: LanguageResponse?) {
+            super.onPostExecute(result)
+            if (result != null && result.isSuccess()) {
+                setLanguages(result.getLanguages())
+            }
+        }
     }
 }
