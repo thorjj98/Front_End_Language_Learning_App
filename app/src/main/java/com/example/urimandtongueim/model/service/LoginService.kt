@@ -8,8 +8,8 @@ class LoginService {
 
     var server = ServerFacade()
 
-    fun login(request: LoginRequest): LoginResponse {
-        var response: LoginResponse = server.login(request)
+    fun login(request: LoginRequest): LoginResponse? {
+        var response: LoginResponse? = server.login(request)
         return response
     }
 

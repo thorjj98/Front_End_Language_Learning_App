@@ -21,7 +21,6 @@ import com.example.urimandtongueim.model.responses.LanguageResponse
 import com.example.urimandtongueim.model.responses.RegisterResponse
 import com.example.urimandtongueim.model.service.LanguageService
 import com.example.urimandtongueim.model.service.RegisterService
-import com.example.urimandtongueim.net.RegisterTask
 
 class RegisterFragment : Fragment()  {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,16 +53,18 @@ class RegisterFragment : Fragment()  {
             val learnerLanguage = view.findViewById<Spinner>(R.id.learningLanguageSpinner).selectedItem.toString()
             val response = registerService.register(RegisterRequest(userName, password, nativeLanguage, learnerLanguage))
 
-            if (response.isSuccess()){
-                DataCache.setLoggedInStatus(true)
-                val fm: FragmentManager? = fragmentManager
-                val homeFragment: HomeFragment = HomeFragment()
-                val args = Bundle()
-                homeFragment.arguments = args
-                if (fm != null) {
-                    fm.beginTransaction()
-                        .replace(R.id.fragmentContainer, homeFragment)
-                        .commit()
+            if (response != null) {
+                if (response.isSuccess()){
+                    DataCache.setLoggedInStatus(true)
+                    val fm: FragmentManager? = fragmentManager
+                    val homeFragment: HomeFragment = HomeFragment()
+                    val args = Bundle()
+                    homeFragment.arguments = args
+                    if (fm != null) {
+                        fm.beginTransaction()
+                            .replace(R.id.fragmentContainer, homeFragment)
+                            .commit()
+                    }
                 }
             }
         }
@@ -143,7 +144,7 @@ class RegisterFragment : Fragment()  {
             register(response)
         }
 
-        override fun doInBackground(vararg request: RegisterRequest): RegisterResponse {
+        override fun doInBackground(vararg request: RegisterRequest): RegisterResponse? {
             val registerService = RegisterService()
             return registerService.register(request[0])
         }

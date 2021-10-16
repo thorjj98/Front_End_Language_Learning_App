@@ -10,8 +10,8 @@ class RegisterService {
 
     var server = ServerFacade()
 
-    fun register(request: RegisterRequest): RegisterResponse {
-        var response: RegisterResponse = server.register(request)
+    fun register(request: RegisterRequest): RegisterResponse? {
+        var response: RegisterResponse? = server.register(request)
         return response
     }
 }

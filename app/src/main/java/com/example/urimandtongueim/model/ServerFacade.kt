@@ -1,56 +1,93 @@
 package com.example.urimandtongueim.model
 
-import android.os.AsyncTask
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.example.urimandtongueim.model.requests.*
 import com.example.urimandtongueim.model.responses.*
 import com.google.gson.Gson
-import java.io.InputStream
-import java.io.InputStreamReader
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
 
+
 class ServerFacade {
-//AsyncTask<Void, Void, String>
-    fun login(request: LoginRequest): LoginResponse{
-        val response = LoginResponse(true)
-        return response
+
+    fun login(request: LoginRequest): LoginResponse? {
+        val jsonString = Json.encodeToString(request)
+        val connection = URL("http://10.0.2.2:8080/login").openConnection() as HttpURLConnection
+        connection.readTimeout = 5000
+        connection.requestMethod = "Post"
+        connection.connect()
+        if (connection.responseCode == HttpURLConnection.HTTP_OK) {
+            writeStringToOutputStream(jsonString, connection.outputStream)
+            val jsonResponse: String = readStringFromInputStream(connection.inputStream)
+            val gson = Gson()
+            return gson.fromJson(jsonResponse, LoginResponse::class.java)
+        }
+        return null
     }
 
-    fun register(request: RegisterRequest): RegisterResponse{
-        val response = RegisterResponse(true)
-        return response
+    fun register(request: RegisterRequest): RegisterResponse? {
+        val jsonString = Json.encodeToString(request)
+        val connection = URL("http://10.0.2.2:8080/register").openConnection() as HttpURLConnection
+        connection.readTimeout = 5000
+        connection.requestMethod = "Post"
+        connection.connect()
+        if (connection.responseCode == HttpURLConnection.HTTP_OK) {
+            writeStringToOutputStream(jsonString, connection.outputStream)
+            val jsonResponse: String = readStringFromInputStream(connection.inputStream)
+            val gson = Gson()
+            return gson.fromJson(jsonResponse, RegisterResponse::class.java)
+        }
+        return null
     }
 
-    fun getJson(request: FileRequest): FileResponse{
-        val response = FileResponse(true)
-        return response
+    fun getJson(request: FileRequest): FileResponse? {
+        val jsonString = Json.encodeToString(request)
+        val connection = URL("http://10.0.2.2:8080/jsons").openConnection() as HttpURLConnection
+        connection.readTimeout = 5000
+        connection.requestMethod = "Get"
+        connection.connect()
+        if (connection.responseCode == HttpURLConnection.HTTP_OK) {
+            writeStringToOutputStream(jsonString, connection.outputStream)
+            val jsonResponse: String = readStringFromInputStream(connection.inputStream)
+            val gson = Gson()
+            return gson.fromJson(jsonResponse, FileResponse::class.java)
+        }
+        return null
     }
 
-    lateinit var languageResponse: LanguageResponse
-
-    @RequiresApi(Build.VERSION_CODES.N)
     fun getLanguages(request: LanguageRequest): LanguageResponse? {
+        val jsonString = Json.encodeToString(request)
         val connection = URL("http://10.0.2.2:8080/language").openConnection() as HttpURLConnection
         connection.readTimeout = 5000
         connection.requestMethod = "GET"
         connection.connect()
         if (connection.responseCode == HttpURLConnection.HTTP_OK) {
-            val jsonResponse: String? = readStringFromInputStream(connection.inputStream)
+            writeStringToOutputStream(jsonString, connection.outputStream)
+            val jsonResponse: String = readStringFromInputStream(connection.inputStream)
             val gson = Gson()
-            val response = gson.fromJson(jsonResponse, LanguageResponse::class.java)
-            return response
+            return gson.fromJson(jsonResponse, LanguageResponse::class.java)
         }
         return null
     }
 
-    fun getStatsitics(request: StatisticRequest): StatisticResponse{
-        val response = StatisticResponse(true)
-        return response
+    fun getStatsitics(request: StatisticRequest): StatisticResponse? {
+        val jsonString = Json.encodeToString(request)
+        val connection = URL("http://10.0.2.2:8080/stats").openConnection() as HttpURLConnection
+        connection.readTimeout = 5000
+        connection.requestMethod = "Get"
+        connection.connect()
+        if (connection.responseCode == HttpURLConnection.HTTP_OK) {
+            writeStringToOutputStream(jsonString, connection.outputStream)
+            val jsonResponse: String = readStringFromInputStream(connection.inputStream)
+            val gson = Gson()
+            return gson.fromJson(jsonResponse, StatisticResponse::class.java)
+        }
+        return null
     }
 
-    private fun readStringFromInputStream(inputStream: InputStream): String? {
+    private fun readStringFromInputStream(inputStream: InputStream): String {
         val stringBuilder = StringBuilder()
         val streamReader = InputStreamReader(inputStream)
         val buf = CharArray(1024)
@@ -64,5 +101,11 @@ class ServerFacade {
         return stringBuilder.toString()
     }
 
+    private fun writeStringToOutputStream(str: String, outputStream: OutputStream) {
+        val streamWriter = OutputStreamWriter(outputStream)
+        val bufferedWriter = BufferedWriter(streamWriter)
+        bufferedWriter.write(str)
+        bufferedWriter.flush()
+    }
 
 }

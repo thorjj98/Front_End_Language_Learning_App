@@ -7,8 +7,8 @@ import com.example.urimandtongueim.model.responses.FileResponse
 class FileService {
     var server = ServerFacade()
 
-    fun getJson(request: FileRequest): FileResponse {
-        var response: FileResponse = server.getJson(request)
+    fun getJson(request: FileRequest): FileResponse? {
+        var response: FileResponse? = server.getJson(request)
         return response
     }
 }

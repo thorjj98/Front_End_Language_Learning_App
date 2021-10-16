@@ -36,16 +36,18 @@ class LoginFragment : Fragment() {
             val password = view.findViewById<EditText>(R.id.editPasswordText).toString()
 
             val response = loginService.login(LoginRequest(userName, password))
-            if (response.isSuccess()){
-                DataCache.setLoggedInStatus(true)
-                val fm: FragmentManager? = fragmentManager
-                val homeFragment: HomeFragment = HomeFragment()
-                val args = Bundle()
-                homeFragment.arguments = args
-                if (fm != null) {
-                    fm.beginTransaction()
-                        .replace(R.id.fragmentContainer, homeFragment)
-                        .commit()
+            if (response != null) {
+                if (response.isSuccess()){
+                    DataCache.setLoggedInStatus(true)
+                    val fm: FragmentManager? = fragmentManager
+                    val homeFragment: HomeFragment = HomeFragment()
+                    val args = Bundle()
+                    homeFragment.arguments = args
+                    if (fm != null) {
+                        fm.beginTransaction()
+                            .replace(R.id.fragmentContainer, homeFragment)
+                            .commit()
+                    }
                 }
             }
         }

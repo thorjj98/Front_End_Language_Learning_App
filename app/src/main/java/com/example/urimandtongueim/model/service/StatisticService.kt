@@ -11,8 +11,8 @@ class StatisticService {
     var server = ServerFacade()
 
 
-    fun getStatistics(request: StatisticRequest): StatisticResponse {
-        var response: StatisticResponse = server.getStatsitics(request)
+    fun getStatistics(request: StatisticRequest): StatisticResponse? {
+        var response: StatisticResponse? = server.getStatsitics(request)
         return response
     }
 }

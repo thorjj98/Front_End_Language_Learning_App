@@ -39,9 +39,11 @@ class AddLanguageActivity : AppCompatActivity() {
                             params.setMargins(40, 40, 40, 0)
                             button.setOnClickListener {
                                 val response = jsonService.getJson(FileRequest("English"))
-                                if (response.isSuccess()) {
-                                    val intent = Intent(this, MainActivity::class.java)
-                                    startActivity(intent)
+                                if (response != null) {
+                                    if (response.isSuccess()) {
+                                        val intent = Intent(this, MainActivity::class.java)
+                                        startActivity(intent)
+                                    }
                                 }
                             }
                             button.setBackgroundColor(Color.parseColor("#356ec9"))
