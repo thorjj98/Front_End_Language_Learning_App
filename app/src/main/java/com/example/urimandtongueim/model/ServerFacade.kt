@@ -13,13 +13,18 @@ import java.net.URL
 class ServerFacade {
 
     fun login(request: LoginRequest): LoginResponse? {
-        val jsonString = Json.encodeToString(request)
+        val gson = Gson()
+        val jsonString = gson.toJson(request)
         val connection = URL("http://10.0.2.2:8080/login").openConnection() as HttpURLConnection
         connection.readTimeout = 5000
-        connection.requestMethod = "Post"
+        connection.requestMethod = "POST"
+        connection.doInput = true
+        connection.doOutput = true
+        connection.setRequestProperty("Content-Type", "application/json")
+        writeStringToOutputStream(jsonString, connection.outputStream)
+        val responseCode = connection.responseCode
         connection.connect()
         if (connection.responseCode == HttpURLConnection.HTTP_OK) {
-            writeStringToOutputStream(jsonString, connection.outputStream)
             val jsonResponse: String = readStringFromInputStream(connection.inputStream)
             val gson = Gson()
             return gson.fromJson(jsonResponse, LoginResponse::class.java)
@@ -28,10 +33,16 @@ class ServerFacade {
     }
 
     fun register(request: RegisterRequest): RegisterResponse? {
-        val jsonString = Json.encodeToString(request)
+        val gson = Gson()
+        val jsonString = gson.toJson(request)
         val connection = URL("http://10.0.2.2:8080/register").openConnection() as HttpURLConnection
         connection.readTimeout = 5000
-        connection.requestMethod = "Post"
+        connection.requestMethod = "POST"
+        connection.doInput = true
+        connection.doOutput = true
+        connection.setRequestProperty("Content-Type", "application/json")
+        writeStringToOutputStream(jsonString, connection.outputStream)
+        val responseCode = connection.responseCode
         connection.connect()
         if (connection.responseCode == HttpURLConnection.HTTP_OK) {
             writeStringToOutputStream(jsonString, connection.outputStream)
@@ -43,10 +54,16 @@ class ServerFacade {
     }
 
     fun getJson(request: FileRequest): FileResponse? {
-        val jsonString = Json.encodeToString(request)
+        val gson = Gson()
+        val jsonString = gson.toJson(request)
         val connection = URL("http://10.0.2.2:8080/jsons").openConnection() as HttpURLConnection
         connection.readTimeout = 5000
-        connection.requestMethod = "Get"
+        connection.requestMethod = "GET"
+        connection.doInput = true
+        connection.doOutput = true
+        connection.setRequestProperty("Content-Type", "application/json")
+        writeStringToOutputStream(jsonString, connection.outputStream)
+        val responseCode = connection.responseCode
         connection.connect()
         if (connection.responseCode == HttpURLConnection.HTTP_OK) {
             writeStringToOutputStream(jsonString, connection.outputStream)
@@ -58,10 +75,16 @@ class ServerFacade {
     }
 
     fun getLanguages(request: LanguageRequest): LanguageResponse? {
-        val jsonString = Json.encodeToString(request)
+        val gson = Gson()
+        val jsonString = gson.toJson(request)
         val connection = URL("http://10.0.2.2:8080/language").openConnection() as HttpURLConnection
         connection.readTimeout = 5000
         connection.requestMethod = "GET"
+        connection.doInput = true
+        connection.doOutput = true
+        connection.setRequestProperty("Content-Type", "application/json")
+        writeStringToOutputStream(jsonString, connection.outputStream)
+        val responseCode = connection.responseCode
         connection.connect()
         if (connection.responseCode == HttpURLConnection.HTTP_OK) {
             writeStringToOutputStream(jsonString, connection.outputStream)
@@ -73,10 +96,15 @@ class ServerFacade {
     }
 
     fun getStatsitics(request: StatisticRequest): StatisticResponse? {
-        val jsonString = Json.encodeToString(request)
+        val gson = Gson()
+        val jsonString = gson.toJson(request)
         val connection = URL("http://10.0.2.2:8080/stats").openConnection() as HttpURLConnection
         connection.readTimeout = 5000
-        connection.requestMethod = "Get"
+        connection.requestMethod = "GET"
+        connection.doInput = true
+        connection.doOutput = true
+        connection.setRequestProperty("Content-Type", "application/json")
+        writeStringToOutputStream(jsonString, connection.outputStream)
         connection.connect()
         if (connection.responseCode == HttpURLConnection.HTTP_OK) {
             writeStringToOutputStream(jsonString, connection.outputStream)

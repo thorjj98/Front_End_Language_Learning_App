@@ -1,5 +1,7 @@
 package com.example.urimandtongueim.model.requests
 
+import kotlinx.serialization.Serializable
+
 class LoginRequest(userNameInput: String, passwordInput: String) {
 
     var username = userNameInput

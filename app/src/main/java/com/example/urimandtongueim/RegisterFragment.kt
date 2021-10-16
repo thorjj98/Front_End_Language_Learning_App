@@ -126,7 +126,7 @@ class RegisterFragment : Fragment()  {
             register(response)
         }
 
-        override fun doInBackground(vararg request: RegisterRequest): RegisterResponse {
+        override fun doInBackground(vararg request: RegisterRequest): RegisterResponse? {
             val registerService = RegisterService()
             return registerService.register(request[0])
         }
