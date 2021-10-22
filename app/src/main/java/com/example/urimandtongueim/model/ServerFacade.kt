@@ -3,8 +3,6 @@ package com.example.urimandtongueim.model
 import com.example.urimandtongueim.model.requests.*
 import com.example.urimandtongueim.model.responses.*
 import com.google.gson.Gson
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
@@ -80,8 +78,6 @@ class ServerFacade {
         val connection = URL("http://10.0.2.2:8080/language").openConnection() as HttpURLConnection
         connection.readTimeout = 5000
         connection.requestMethod = "GET"
-        connection.doInput = true
-        connection.doOutput = true
         connection.setRequestProperty("Content-Type", "application/json")
         writeStringToOutputStream(jsonString, connection.outputStream)
         val responseCode = connection.responseCode
