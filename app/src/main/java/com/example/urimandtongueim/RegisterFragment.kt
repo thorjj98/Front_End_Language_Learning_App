@@ -21,6 +21,7 @@ import com.example.urimandtongueim.model.responses.LanguageResponse
 import com.example.urimandtongueim.model.responses.RegisterResponse
 import com.example.urimandtongueim.model.service.LanguageService
 import com.example.urimandtongueim.model.service.RegisterService
+import model.Language
 
 class RegisterFragment : Fragment()  {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,13 +68,19 @@ class RegisterFragment : Fragment()  {
         return view
     }
 
-    fun setLanguages(languages: Array<String>){
+    fun setLanguages(languages: MutableList<Language>){
+        val languageNames: Array<String?> = arrayOfNulls(languages.size)
+        var i = 0
+        for (language in languages) {
+            languageNames[i] = language.name
+            i += 1
+        }
         val nativeLanguageSpinner: Spinner = view!!.findViewById(R.id.nativeLanguageSpinner)
         val nativeLanguageAdapter: ArrayAdapter<*> = context?.let {
             ArrayAdapter(
                 it,
                 android.R.layout.simple_list_item_1,
-                languages
+                languageNames
             )
         }!!
         nativeLanguageSpinner.adapter = nativeLanguageAdapter
@@ -83,12 +90,13 @@ class RegisterFragment : Fragment()  {
             ArrayAdapter(
                 it,
                 android.R.layout.simple_list_item_1,
-                languages
+                languageNames
             )
         }!!
         learningLanguageSpinner.adapter = learningLanguageAdapter
     }
 
+    // TODO: Connect to back end register
     fun register(response: RegisterResponse) {
         if (response.isSuccess()){
             DataCache.setLoggedInStatus(true)
@@ -111,7 +119,7 @@ class RegisterFragment : Fragment()  {
         override fun onPostExecute(result: LanguageResponse?) {
             super.onPostExecute(result)
             if (result != null && result.isSuccess()) {
-                setLanguages(result.getLanguages())
+                result.getLanguages()?.let { setLanguages(it) }
             }
         }
     }

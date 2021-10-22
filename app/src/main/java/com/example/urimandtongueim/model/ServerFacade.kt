@@ -3,8 +3,6 @@ package com.example.urimandtongueim.model
 import com.example.urimandtongueim.model.requests.*
 import com.example.urimandtongueim.model.responses.*
 import com.google.gson.Gson
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
@@ -21,7 +19,8 @@ class ServerFacade {
         connection.doInput = true
         connection.doOutput = true
         connection.setRequestProperty("Content-Type", "application/json")
-        writeStringToOutputStream(jsonString, connection.outputStream)
+        val outputStream = connection.outputStream
+        writeStringToOutputStream(jsonString, outputStream)
         val responseCode = connection.responseCode
         connection.connect()
         if (connection.responseCode == HttpURLConnection.HTTP_OK) {
@@ -32,6 +31,7 @@ class ServerFacade {
         return null
     }
 
+    //TODO: Connect to back end Register
     fun register(request: RegisterRequest): RegisterResponse? {
         val gson = Gson()
         val jsonString = gson.toJson(request)
@@ -80,14 +80,12 @@ class ServerFacade {
         val connection = URL("http://10.0.2.2:8080/language").openConnection() as HttpURLConnection
         connection.readTimeout = 5000
         connection.requestMethod = "GET"
-        connection.doInput = true
-        connection.doOutput = true
         connection.setRequestProperty("Content-Type", "application/json")
-        writeStringToOutputStream(jsonString, connection.outputStream)
+        //writeStringToOutputStream(jsonString, connection.outputStream)
         val responseCode = connection.responseCode
         connection.connect()
         if (connection.responseCode == HttpURLConnection.HTTP_OK) {
-            writeStringToOutputStream(jsonString, connection.outputStream)
+            //writeStringToOutputStream(jsonString, connection.outputStream)
             val jsonResponse: String = readStringFromInputStream(connection.inputStream)
             val gson = Gson()
             return gson.fromJson(jsonResponse, LanguageResponse::class.java)
