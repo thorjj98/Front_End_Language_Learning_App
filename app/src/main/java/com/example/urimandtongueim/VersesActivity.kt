@@ -99,12 +99,12 @@ class VersesActivity : AppCompatActivity() {
                             }
                             widget.invalidate()
                             translation.text = eng
-                            TransitionManager.beginDelayedTransition(root_layout)
+                            //TransitionManager.beginDelayedTransition(root_layout)
                             popupWindow.showAtLocation(
                                 root_layout, // Location to display popup window
-                                Gravity.CENTER, // Exact position of layout to display popup
+                                Gravity.BOTTOM, // Exact position of layout to display popup
                                 0, // X offset
-                                0 // Y offset
+                                50 // Y offset
                             )
                             popupDisplayed = true
                             isTextClicked = true
