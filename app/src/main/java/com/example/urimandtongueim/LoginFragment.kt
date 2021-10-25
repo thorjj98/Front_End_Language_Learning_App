@@ -1,6 +1,7 @@
 package com.example.urimandtongueim
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Build
@@ -11,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentManager
 import com.example.urimandtongueim.model.DataCache
@@ -64,7 +66,7 @@ class LoginFragment : Fragment() {
     }
 
     fun login(response: LoginResponse) {
-        if (response.isSuccess()){
+        if (response.isSuccess()) {
             DataCache.setLoggedInStatus(true)
             val fm: FragmentManager? = fragmentManager
             val homeFragment: HomeFragment = HomeFragment()
@@ -75,6 +77,8 @@ class LoginFragment : Fragment() {
                     .replace(R.id.fragmentContainer, homeFragment)
                     .commit()
             }
+        } else {
+            Toast.makeText(this.context, "Invalid username or password", Toast.LENGTH_LONG).show()
         }
     }
 

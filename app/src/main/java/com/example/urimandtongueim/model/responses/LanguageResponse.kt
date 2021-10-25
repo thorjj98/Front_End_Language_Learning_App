@@ -1,23 +1,21 @@
 package com.example.urimandtongueim.model.responses
 
-class LanguageResponse(successInput: Boolean, languageInput: Array<String>, fileInput: Array<String>) {
+import model.Language
 
-    var success: Boolean = successInput
-    var languages: Array<String> = languageInput
-    var files: Array<String> = fileInput
+class LanguageResponse(success: Boolean, var languages: MutableList<Language>?): Response(success) {
 
     fun isSuccess(): Boolean {
         return success
     }
 
     @JvmName("getLanguages1")
-    fun getLanguages(): Array<String> {
+    fun getLanguages(): MutableList<Language>? {
         return languages
     }
-
-    @JvmName("getFiles1")
-    fun getFiles(): Array<String> {
-        return files
-    }
+//
+//    @JvmName("getFiles1")
+//    fun getFiles(): Array<String> {
+//        return files
+//    }
 
 }

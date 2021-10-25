@@ -19,7 +19,8 @@ class ServerFacade {
         connection.doInput = true
         connection.doOutput = true
         connection.setRequestProperty("Content-Type", "application/json")
-        writeStringToOutputStream(jsonString, connection.outputStream)
+        val outputStream = connection.outputStream
+        writeStringToOutputStream(jsonString, outputStream)
         val responseCode = connection.responseCode
         connection.connect()
         if (connection.responseCode == HttpURLConnection.HTTP_OK) {
@@ -30,6 +31,7 @@ class ServerFacade {
         return null
     }
 
+    //TODO: Connect to back end Register
     fun register(request: RegisterRequest): RegisterResponse? {
         val gson = Gson()
         val jsonString = gson.toJson(request)
@@ -79,11 +81,11 @@ class ServerFacade {
         connection.readTimeout = 5000
         connection.requestMethod = "GET"
         connection.setRequestProperty("Content-Type", "application/json")
-        writeStringToOutputStream(jsonString, connection.outputStream)
+        //writeStringToOutputStream(jsonString, connection.outputStream)
         val responseCode = connection.responseCode
         connection.connect()
         if (connection.responseCode == HttpURLConnection.HTTP_OK) {
-            writeStringToOutputStream(jsonString, connection.outputStream)
+            //writeStringToOutputStream(jsonString, connection.outputStream)
             val jsonResponse: String = readStringFromInputStream(connection.inputStream)
             val gson = Gson()
             return gson.fromJson(jsonResponse, LanguageResponse::class.java)

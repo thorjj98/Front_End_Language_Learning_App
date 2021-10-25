@@ -32,9 +32,9 @@ class AddLanguageActivity : AppCompatActivity() {
         val response = languageService.getLanguages(LanguageRequest())
         if (response != null) {
             if (response.isSuccess()){
-                for (language in response.getLanguages()){
+                for (language in response.getLanguages()!!){
                             val button = Button(this)
-                            button.text=language
+                            button.text=language.name
                             val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT)
                             params.setMargins(40, 40, 40, 0)
                             button.setOnClickListener {
