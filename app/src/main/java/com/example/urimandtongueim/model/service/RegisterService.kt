@@ -2,9 +2,9 @@ package com.example.urimandtongueim.model.service
 
 import com.example.urimandtongueim.model.ServerFacade
 import com.example.urimandtongueim.model.requests.LoginRequest
-import com.example.urimandtongueim.model.requests.RegisterRequest
 import com.example.urimandtongueim.model.responses.LoginResponse
 import com.example.urimandtongueim.model.responses.RegisterResponse
+import requests.RegisterRequest
 
 class RegisterService {
 

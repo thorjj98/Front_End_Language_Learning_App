@@ -16,12 +16,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.urimandtongueim.model.DataCache
 import com.example.urimandtongueim.model.requests.LanguageRequest
-import com.example.urimandtongueim.model.requests.RegisterRequest
 import com.example.urimandtongueim.model.responses.LanguageResponse
 import com.example.urimandtongueim.model.responses.RegisterResponse
 import com.example.urimandtongueim.model.service.LanguageService
 import com.example.urimandtongueim.model.service.RegisterService
 import model.Language
+import requests.RegisterRequest
 
 class RegisterFragment : Fragment()  {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,12 +48,12 @@ class RegisterFragment : Fragment()  {
         val registerButton = view.findViewById<Button>(R.id.register)
         registerButton.setOnClickListener {
 
-            val userName = view.findViewById<EditText>(R.id.editUsernameText).toString()
-            val password = view.findViewById<EditText>(R.id.editPasswordText).toString()
+            val userName = view.findViewById<EditText>(R.id.editUsernameText).text.toString()
+            val password = view.findViewById<EditText>(R.id.editPasswordText).text.toString()
             val nativeLanguage = view.findViewById<Spinner>(R.id.nativeLanguageSpinner).selectedItem.toString()
             val learnerLanguage = view.findViewById<Spinner>(R.id.learningLanguageSpinner).selectedItem.toString()
 
-            registerAsyncTask.execute(RegisterRequest(userName, password, nativeLanguage, learnerLanguage))
+            registerAsyncTask.execute(RegisterRequest(userName, password, null, null, nativeLanguage))
         }
 
         val loginButton = view.findViewById<Button>(R.id.loginReturn)

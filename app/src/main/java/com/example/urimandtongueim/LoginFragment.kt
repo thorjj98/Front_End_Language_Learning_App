@@ -17,7 +17,6 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentManager
 import com.example.urimandtongueim.model.DataCache
 import com.example.urimandtongueim.model.requests.LoginRequest
-import com.example.urimandtongueim.model.requests.RegisterRequest
 import com.example.urimandtongueim.model.responses.LoginResponse
 import com.example.urimandtongueim.model.responses.RegisterResponse
 import com.example.urimandtongueim.model.service.LanguageService

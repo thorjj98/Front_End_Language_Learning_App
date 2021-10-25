@@ -3,6 +3,7 @@ package com.example.urimandtongueim.model
 import com.example.urimandtongueim.model.requests.*
 import com.example.urimandtongueim.model.responses.*
 import com.google.gson.Gson
+import requests.RegisterRequest
 import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
@@ -45,7 +46,6 @@ class ServerFacade {
         val responseCode = connection.responseCode
         connection.connect()
         if (connection.responseCode == HttpURLConnection.HTTP_OK) {
-            writeStringToOutputStream(jsonString, connection.outputStream)
             val jsonResponse: String = readStringFromInputStream(connection.inputStream)
             val gson = Gson()
             return gson.fromJson(jsonResponse, RegisterResponse::class.java)
