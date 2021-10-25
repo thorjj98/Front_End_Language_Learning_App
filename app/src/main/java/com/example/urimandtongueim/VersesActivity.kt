@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.text.SpannableString
+import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
@@ -96,6 +97,7 @@ class VersesActivity : AppCompatActivity() {
                             if (popupDisplayed){
                                 popupWindow.dismiss()
                             }
+                            widget.invalidate()
                             translation.text = eng
                             TransitionManager.beginDelayedTransition(root_layout)
                             popupWindow.showAtLocation(
@@ -106,6 +108,7 @@ class VersesActivity : AppCompatActivity() {
                             )
                             popupDisplayed = true
                             isTextClicked = true
+
                         }
 
                         override fun updateDrawState(ds: TextPaint) {
@@ -115,7 +118,7 @@ class VersesActivity : AppCompatActivity() {
                         }
                     }
                     //set the length of the span
-                    contentSpannableString.setSpan(clickableSpan, spaStart, spaEnd, 0)
+                    contentSpannableString.setSpan(clickableSpan, spaStart, spaEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                 }
                 //set the textview to the string containing the segmented chapter
                 content.append(contentSpannableString).toString()
